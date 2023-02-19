@@ -1,18 +1,22 @@
 package main
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"github.com/gofiber/fiber/v2"
+)
 
 func main() {
-    // disable startup message in fiber
+	// disable startup message in fiber
 
-    config := fiber.Config{
-        DisableStartupMessage: true,
-    }
-    app := fiber.New(config)
+	config := fiber.Config{
+		// DisableStartupMessage: true,
+		DisableStartupMessage: false,
+	}
+	app := fiber.New(config)
 
-    app.Get("/", func(c *fiber.Ctx) error {
-        return c.SendString("Helllo, World111!")
-    })
+    setupRoutes(app)
 
-    app.Listen(":3000")
+
+    // listen on port 3000
+	app.Listen(":3000")
 }
+
