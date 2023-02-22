@@ -13,7 +13,10 @@ func setupRoutes(app *fiber.App) {
 	})
 	api.Post("/facts", handlers.CreateFact)
 	api.Delete("/facts/:id", handlers.DeleteFact)
-}
 
-// curl command ot list all ListFacts
-// curl -X GET http://localhost:3000/api/v1/facts
+    api.Get("/facts/:id", handlers.GetFact)
+    api .Static("/", "./public", fiber.Static{
+        Index: "index.html",
+
+    })
+}
