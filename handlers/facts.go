@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gofiber/fiber/v2"
@@ -11,15 +12,20 @@ import (
 func ListFacts(c *fiber.Ctx) error {
 	// get all facts
 	var facts []models.Fact
-	database.DB.Db.Find(&facts)
+	err := database.DB.Db.Find(&facts).Error
+	if err != nil {
+		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": err.Error()})
+	}
 
-	return c.Status(http.StatusOK).JSON("hi")
+	return c.Status(http.StatusOK).JSON(facts)
 	// return c.Status(http.StatusOK).JSON(facts)
 }
+
 func CreateFact(c *fiber.Ctx) error {
 	var fact models.Fact
 	// unmarshal the body to fact using body parser
 	err := c.BodyParser(&fact)
+    fmt.Println("got:",fact)
 	if err != nil {
 		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": err.Error()})
 	}

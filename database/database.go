@@ -2,6 +2,7 @@ package database
 
 import (
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/iZarrios/docker-compose-go-psql/models"
@@ -17,21 +18,30 @@ type DbInstance struct {
 var DB DbInstance
 
 // connect to database postgres
-func Connect() (*gorm.DB, error) {
+func Connect() {
+	dsn := fmt.Sprintf(
+		"host=db user=%s password=%s dbname=%s port=5432 sslmode=disable",
+		os.Getenv("DB_USER"),
+		os.Getenv("DB_PASSWORD"),
+		os.Getenv("DB_NAME"),
+	)
 
-	dns := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Shanghai",
-		os.Getenv("DB_HOST"), os.Getenv("DB_USER"), os.Getenv("DB_PASSWORD"), os.Getenv("DB_NAME"), os.Getenv("DB_PORT"))
-
-	db, err := gorm.Open(postgres.Open(dns), &gorm.Config{
-		Logger: logger.Default.LogMode(logger.Info),
+	// disable logging
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
+		Logger: logger.Default.LogMode(logger.Silent),
 	})
-	if err != nil {
-		return nil, err
-	}
-	// migrate the fact model
-	db.AutoMigrate(&models.Fact{})
-	DB = DbInstance{Db: db}
 
-	return db, nil
+	if err != nil {
+		log.Fatal("Failed to connect to database. \n", err)
+		os.Exit(2)
+	}
+
+	log.Println("connected")
+
+	log.Println("running migrations")
+	db.AutoMigrate(&models.Fact{})
+	log.Println("done running migrations")
+
+	DB.Db = db
 
 }
