@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/iZarrios/docker-compose-go-psql/models"
+	"github.com/iZarrios/docker-compose-golang/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"

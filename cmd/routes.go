@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/iZarrios/docker-compose-go-psql/handlers"
+	"github.com/iZarrios/docker-compose-golang/handlers"
 )
 
 func setupRoutes(app *fiber.App) {

@@ -5,8 +5,8 @@ import (
 	"net/http"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/iZarrios/docker-compose-go-psql/database"
-	"github.com/iZarrios/docker-compose-go-psql/models"
+	"github.com/iZarrios/docker-compose-golang/database"
+	"github.com/iZarrios/docker-compose-golang/models"
 )
 
 func ListFacts(c *fiber.Ctx) error {

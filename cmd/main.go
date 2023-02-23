@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
-	"github.com/iZarrios/docker-compose-go-psql/database"
+	"github.com/iZarrios/docker-compose-golang/database"
 )
 
 func main() {

@@ -1,4 +1,4 @@
-module github.com/iZarrios/docker-compose-go-psql
+module github.com/iZarrios/docker-compose-golang
 
 go 1.19
 
