@@ -25,7 +25,7 @@ func CreateFact(c *fiber.Ctx) error {
 	var fact models.Fact
 	// unmarshal the body to fact using body parser
 	err := c.BodyParser(&fact)
-    fmt.Println("got:",fact)
+	fmt.Println("got:", fact)
 	if err != nil {
 		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": err.Error()})
 	}
@@ -42,12 +42,13 @@ func DeleteFact(c *fiber.Ctx) error {
 	return c.SendStatus(http.StatusNoContent)
 }
 
-func GetFact(c* fiber.Ctx) error {
-    id := c.Params("id")
-    var fact models.Fact
-    err := database.DB.Db.First(&fact, id).Error
-    if err != nil {
-        return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": err.Error()})
-    }
-    return c.Status(http.StatusOK).JSON(fact)
+func GetFact(c *fiber.Ctx) error {
+	id := c.Params("id")
+	var fact models.Fact
+	err := database.DB.Db.First(&fact, id).Error
+	if err != nil {
+		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": err.Error()})
+	}
+	return c.Status(http.StatusOK).JSON(fact)
 }
+
